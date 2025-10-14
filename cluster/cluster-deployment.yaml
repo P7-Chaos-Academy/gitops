@@ -6,75 +6,64 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cluster-deployment
+  name: cluster-api
   namespace: cluster-namespace
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: cluster-deployment
+      app: cluster-api
   template:
     metadata:
       labels:
-        app: cluster-deployment
+        app: cluster-api
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - arm
+                      - arm64
       containers:
-        - name: cluster-container
-          image: cgamel/cluster-api:61c613bc
-          imagePullPolicy: Always
+        - name: cluster-api
+          image: cgamel/cluster-api:67a1b8da
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
-
+            - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: cluster-deployment-service
+  name: cluster-api
   namespace: cluster-namespace
 spec:
   selector:
-    app: cluster-deployment
+    app: cluster-api
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 80
-  type: LoadBalancer
-
+    - name: http
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: cluster-deployment-ingress
+  name: cluster-api
   namespace: cluster-namespace
+  annotations:
 spec:
+  ingressClassName: traefik
   rules:
-    - host: cluster-deployment.local
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: backend-deployment-service
+                name: cluster-api
                 port:
-                  number: 8080  # Expose through the service port (8080)
----
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: cluster-deployment-hpa
-  namespace: cluster-namespace
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: cluster-deployment
-  minReplicas: 3
-  maxReplicas: 15
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 70 # Trigger scaling if CPU usage exceeds 70%
+                  number: 80
