@@ -28,6 +28,8 @@ spec:
                     values:
                       - arm
                       - arm64
+      nodeSelector:
+        kubernetes.io/hostname: raspberrypi
       containers:
         - name: cluster-api
           image: cgamel/cluster-api:67a1b8da
