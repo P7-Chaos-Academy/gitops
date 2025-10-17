@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strato-api
+  namespace: strato-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: strato-api
+  template:
+    metadata:
+      labels:
+        app: strato-api
+    spec:
+      containers:
+        - name: strato-api-secret
+          image: cgamel/strato-api:ac28224c
+
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_URLS
+              value: "http://+:80"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: DefaultConnection
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: strato-api-service
+  namespace: strato-api
+spec:
+  selector:
+    app: strato-api
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: strato-api-ingress
+  namespace: strato-api
+spec:
+  rules:
+    - host: strato-api.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: strato-api-service
+                port:
+                  number: 8080  # Expose through the service port (8080)
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: strato-api-hpa
+  namespace: strato-api
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: strato-api
+  minReplicas: 3
+  maxReplicas: 15
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70 # Trigger scaling if CPU usage exceeds 70%
