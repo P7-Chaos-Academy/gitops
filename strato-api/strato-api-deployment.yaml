@@ -30,6 +30,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: DefaultConnection
+            - name: JwtSettings__SecretKey
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: JwtSecretKey
 ---
 apiVersion: v1
 kind: Service
