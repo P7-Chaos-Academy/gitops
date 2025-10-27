@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: jetson-metrics
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: jetson-metrics
+  template:
+    metadata:
+      labels:
+        app: jetson-metrics
+    spec:
+      nodeSelector:
+        type: worker
+      hostNetwork: true
+      imagePullSecrets:
+        - name: regcred
+      containers:
+      - name: metrics
+        image: dbodke22/jetson-metrics-logger:latest
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        ports:
+        - containerPort: 8000
+          name: metrics
+        volumeMounts:
+        - name: sysfs
+          mountPath: /sys
+          readOnly: true
+      volumes:
+      - name: sysfs
+        hostPath:
+          path: /sys
