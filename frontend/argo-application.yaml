@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-frontend-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:P7-Chaos-Academy/devops.git
+    targetRevision: main
+    path: frontend # The folder in your manifest repo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: frontend-deployment # The namespace to deploy to
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
