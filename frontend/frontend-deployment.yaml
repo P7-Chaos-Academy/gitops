@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend-secret
-          image: cgamel/p7-frontend:7c3df7b2
+          image: cgamel/p7-frontend:5c7857c9
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
