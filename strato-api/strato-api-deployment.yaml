@@ -35,6 +35,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: JwtSecretKey
+            - name: ApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: ApiKey
 ---
 apiVersion: v1
 kind: Service
