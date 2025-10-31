@@ -1,2 +1,4 @@
 AGENTS.md
 /strato-api/argo-secret.yaml
+/cluster/repo-secret.yaml
+/strato-api/strato-api-secret.yaml

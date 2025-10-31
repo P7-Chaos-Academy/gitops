@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: strato-api-secret
-          image: cgamel/strato-api:313ee8d8
+          image: cgamel/strato-api:4ba77adc
 
           imagePullPolicy: Always
           ports:
@@ -35,6 +35,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: JwtSecretKey
+            - name: ApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: ApiKey
 ---
 apiVersion: v1
 kind: Service
