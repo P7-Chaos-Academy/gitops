@@ -24,7 +24,7 @@ spec:
         securityContext:
           privileged: true
         ports:
-        - containerPort: 8000
+        - containerPort: 9100
           name: metrics
         volumeMounts:
         - name: sysfs
