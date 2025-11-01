@@ -8,10 +8,10 @@ spec:
   source:
     repoURL: git@github.com:P7-Chaos-Academy/devops.git
     targetRevision: main
-    path: strato-api # The folder in your manifest repo
+    path: strato-api 
   destination:
     server: https://kubernetes.default.svc
-    namespace: strato-api # The namespace to deploy to
+    namespace: strato-api 
   syncPolicy:
     automated:
       prune: true
