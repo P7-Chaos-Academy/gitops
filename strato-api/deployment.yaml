@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: strato-api
+  namespace: strato-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: strato-api
+  template:
+    metadata:
+      labels:
+        app: strato-api
+    spec:
+      containers:
+        - name: strato-api
+          image: cgamel/strato-api:4ba77adc
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_URLS
+              value: "http://+:80"
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+            - name: ConnectionStrings__DefaultConnection
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: DefaultConnection
+            - name: JwtSettings__SecretKey
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: JwtSecretKey
+            - name: ApiKey
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: ApiKey
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
