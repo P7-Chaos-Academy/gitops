@@ -5,8 +5,7 @@ metadata:
 spec:
   template:
     spec:
-      nodeSelector:
-        type: worker
+      schedulerName: llama-scheduler
       hostNetwork: true
       restartPolicy: Never
       containers:
