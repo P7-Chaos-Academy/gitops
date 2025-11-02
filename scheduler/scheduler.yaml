@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama-scheduler
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-scheduler
+  template:
+    metadata:
+      labels:
+        app: llama-scheduler
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: raspberrypi
+      serviceAccountName: llama-scheduler
+      containers:
+        - name: scheduler
+          image: cgamel/llama-scheduler:latest
+          imagePullPolicy: Always
+
