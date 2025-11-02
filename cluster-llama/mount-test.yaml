@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: llama-daemon
+spec:
+  selector:
+    matchLabels:
+      app: llama-daemon
+  template:
+    metadata:
+      labels:
+        app: llama-daemon
+    spec:
+      nodeSelector:
+        type: worker
+      hostPID: true
+      hostNetwork: true
+      restartPolicy: Always
+      containers:
+        - name: llama
+          image: ubuntu:22.04
+          securityContext:
+            privileged: true
+          command:
+            - nsenter
+            - --target
+            - "1"
+            - --mount
+            - --uts
+            - --ipc
+            - --net
+            - --pid
+            - --
+            - bash
+            - -c
+            - |
+              cd /home/aaunano/llama_binaries/llama.cpp
+              ./server -m ./TinyLlama-1.1B-Chat-v1.0-Q5_K_M.gguf -ngl 22 -c 2048 -b 512 -n 2048
+
