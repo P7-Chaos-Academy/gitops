@@ -35,6 +35,8 @@ spec:
               value: aaunano
             - name: SHUTDOWN_COMMAND
               value: "sudo shutdown now"
+            - name: DATABASE_PATH
+              value: /app/data/cluster.db
           volumeMounts:
             - name: gpiochip0
               mountPath: /dev/gpiochip0
@@ -46,6 +48,8 @@ spec:
             - name: ssh-key
               mountPath: /root/.ssh
               readOnly: true
+            - name: sqlite-storage
+              mountPath: /app/data
       volumes:
         - name: gpiochip0
           hostPath:
@@ -63,6 +67,21 @@ spec:
           secret:
             secretName: ssh-key-secret
             defaultMode: 0400
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: cluster-api-sqlite-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cluster-api-sqlite-pvc
+  namespace: cluster-namespace
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
