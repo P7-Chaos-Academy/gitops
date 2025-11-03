@@ -5,7 +5,7 @@ with HTTPS using **NGINX Ingress**, **MetalLB**, and **cert-manager** via GitOps
 
 ---
 
-## 🧩 Overview
+## Overview
 
 | Component | Purpose |
 |------------|----------|
@@ -18,17 +18,17 @@ with HTTPS using **NGINX Ingress**, **MetalLB**, and **cert-manager** via GitOps
 
 ---
 
-## ⚙️ Prerequisites
+## Prerequisites
 
-Before applying manifests, ensure:
+Before applying manifests, ensure that:
 
-- Domain `frontend.gamel.dk` points to your MetalLB public IP (`A` record → `130.225.37.164`)
-- Kubernetes cluster running (e.g., k3s or kubeadm)
+- Domain `frontend.gamel.dk` points to the MetalLB public IP (`A` record → `130.225.37.164`)
+- Kubernetes cluster is running
 - `helm`, `kubectl`, and `kubeseal` (optional) installed
 
 ---
 
-## 🧱 Infrastructure Components
+## Infrastructure Components
 
 ### 1. MetalLB
 
@@ -83,7 +83,7 @@ ingress-nginx-controller   LoadBalancer   10.43.x.x   130.225.37.164   80:xxxx/T
 
 ### 3. Cert-Manager (Let’s Encrypt)
 
-Install cert-manager (if not already installed):
+Install cert-manager:
 
 ```bash
 helm repo add jetstack https://charts.jetstack.io
@@ -120,7 +120,7 @@ kubectl apply -f cluster-issuer.yaml
 
 ---
 
-## 🚀 Application Manifests
+## Application Manifests
 
 ### Namespace
 `namespace.yaml`
@@ -224,7 +224,7 @@ spec:
 
 ---
 
-### HPA (optional)
+### HPA
 `hpa.yaml`
 ```yaml
 apiVersion: autoscaling/v2
@@ -250,7 +250,7 @@ spec:
 
 ---
 
-## ✅ Apply all manifests
+## Apply all manifests
 
 ```bash
 kubectl apply -f namespace.yaml
@@ -263,20 +263,20 @@ kubectl apply -f cluster-issuer.yaml
 
 ---
 
-## 🔍 Verification
+## Verification
 
 1. **Check ingress**
    ```bash
    kubectl get ingress -n frontend-deployment
    ```
-   Should show `ADDRESS: 130.225.37.164` and `TLS: frontend-tls`.
+   Should show something like `ADDRESS: 130.225.37.164` and `TLS: frontend-tls`.
 
 2. **Check cert**
    ```bash
    kubectl get certificate -n frontend-deployment
    kubectl describe certificate frontend-tls -n frontend-deployment
    ```
-   Should show:
+   Should show something like:
    ```
    Status:
      Conditions:
@@ -285,14 +285,14 @@ kubectl apply -f cluster-issuer.yaml
    ```
 
 3. **Access**
-   - `https://frontend.gamel.dk` → should show your app with a 🔒 padlock.
+   - `https://frontend.gamel.dk` → should show out app now.
 
 4. **Renewal**
-   Certificates are automatically renewed by cert-manager before expiry (90 days default).
+   Certificates are automatically renewed by cert-manager before expiry (Set to 90 days by default).
 
 ---
 
-## 🧩 Troubleshooting
+## Troubleshooting
 
 | Issue | Command | Fix |
 |-------|----------|-----|
@@ -302,7 +302,7 @@ kubectl apply -f cluster-issuer.yaml
 
 ---
 
-## 🧭 Notes
+## Notes
 
 - For multi-service setups, you can reuse the same NGINX controller and ClusterIssuer.
 - MetalLB can advertise multiple IPs if you expand the pool range.
