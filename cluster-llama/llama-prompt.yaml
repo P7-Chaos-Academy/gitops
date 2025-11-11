@@ -1,7 +1,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: llama-prompt1
+  generateName: llama-prompt
+  namespace: prompts
 spec:
   template:
     spec:
