@@ -25,6 +25,4 @@ subjects:
   - kind: ServiceAccount
     name: llama-scheduler
     namespace: kube-system
-  - kind: ServiceAccount
-    name: nodeannotator
-    namespace: nodeannotations
+
