@@ -14,7 +14,7 @@ spec:
         app: cluster-api
     spec:
       nodeSelector:
-        kubernetes.io/hostname: raspberrypi
+        kubernetes.io/hostname: p7
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
