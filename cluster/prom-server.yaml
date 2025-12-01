@@ -11,9 +11,9 @@ data:
       - job_name: 'jetson-metrics'
         static_configs:
           - targets:
-            - '172.25.26.50:9100'
-            - '172.25.26.200:9100'
-            - '172.25.26.250:9100'
+            - '192.168.1.201:9100'
+            - '192.168.1.202:9100'
+            - '192.168.1.203:9100'
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,7 +31,7 @@ spec:
         app: prometheus
     spec:
       nodeSelector:
-        kubernetes.io/hostname: raspberrypi
+        kubernetes.io/hostname: p7
       containers:
         - name: prometheus
           image: prom/prometheus:latest

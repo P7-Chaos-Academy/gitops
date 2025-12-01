@@ -14,10 +14,10 @@ spec:
         app: llama-scheduler
     spec:
       nodeSelector:
-        kubernetes.io/hostname: raspberrypi
+        kubernetes.io/hostname: p7
       serviceAccountName: llama-scheduler
       containers:
         - name: scheduler
-          image: cgamel/llama-scheduler:latest
+          image: cgamel/llama-scheduler:de5b35c
           imagePullPolicy: Always
 
