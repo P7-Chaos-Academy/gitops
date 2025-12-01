@@ -25,7 +25,7 @@ spec:
                     values: [arm, arm64]
       containers:
         - name: cluster-api
-          image: cgamel/cluster-api:a70890b
+          image: cgamel/cluster-api:b4ca293
           securityContext:
             privileged: true
           env:
