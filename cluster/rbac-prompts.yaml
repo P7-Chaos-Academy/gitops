@@ -33,25 +33,3 @@ subjects:
 - kind: ServiceAccount
   name: default
   namespace: cluster-namespace
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: node-annotator
-rules:
-- apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["get", "list", "patch"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: prompts-node-annotator-binding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: node-annotator
-subjects:
-- kind: ServiceAccount
-  name: default
-  namespace: prompts
