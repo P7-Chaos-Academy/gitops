@@ -39,6 +39,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: ApiKey
+            - name: Prometheus__BaseUrl
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: PrometheusBaseUrl
           resources:
             requests:
               cpu: 100m
