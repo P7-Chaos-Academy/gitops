@@ -4,7 +4,7 @@ metadata:
   name: strato-api
   namespace: strato-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: strato-api
