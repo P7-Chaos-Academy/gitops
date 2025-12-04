@@ -4,7 +4,7 @@ metadata:
   name: strato-api
   namespace: strato-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: strato-api
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: strato-api
-          image: cgamel/strato-api:c2579d3f
+          image: cgamel/strato-api:1c7cabec
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -39,6 +39,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: ApiKey
+            - name: Prometheus__BaseUrl
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: PrometheusBaseUrl
           resources:
             requests:
               cpu: 100m
