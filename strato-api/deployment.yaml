@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: strato-api
-          image: cgamel/strato-api:1c7cabec
+          image: cgamel/strato-api:d3d35619
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -44,6 +44,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: PrometheusBaseUrl
+            - name: Cluster__BaseUrl
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: ClusterBaseUrl
           resources:
             requests:
               cpu: 100m
