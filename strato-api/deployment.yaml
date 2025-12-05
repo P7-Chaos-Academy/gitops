@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: strato-api
-          image: cgamel/strato-api:aff3c4c2
+          image: cgamel/strato-api:f8f8ab10
           imagePullPolicy: Always
           ports:
             - containerPort: 80
