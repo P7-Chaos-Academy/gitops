@@ -44,6 +44,11 @@ spec:
                 secretKeyRef:
                   name: strato-api-secret
                   key: PrometheusBaseUrl
+            - name: Cluster__BaseUrl
+              valueFrom:
+                secretKeyRef:
+                  name: strato-api-secret
+                  key: ClusterBaseUrl
           resources:
             requests:
               cpu: 100m
