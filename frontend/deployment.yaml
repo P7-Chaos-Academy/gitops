@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: cgamel/p7-frontend:7c71099a
+          image: cgamel/p7-frontend:690a1fbe
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
