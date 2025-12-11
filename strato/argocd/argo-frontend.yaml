@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:P7-Chaos-Academy/devops.git
     targetRevision: main
-    path: frontend # The folder in your manifest repo
+    path: strato/frontend # The folder in your manifest repo
   destination:
     server: https://kubernetes.default.svc
     namespace: frontend-deployment # The namespace to deploy to

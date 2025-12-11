@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:P7-Chaos-Academy/devops.git
     targetRevision: main
-    path: strato-api 
+    path: strato/strato-api 
   destination:
     server: https://kubernetes.default.svc
     namespace: strato-api 

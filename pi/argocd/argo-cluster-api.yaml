@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: git@github.com:P7-Chaos-Academy/gitops.git
     targetRevision: main
-    path: cluster 
+    path: pi/cluster-api
   destination:
     server: https://kubernetes.default.svc
     namespace: backend-deployment # The namespace to deploy to

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: workload-simulator
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama-workload-generator
+  namespace: workload-simulator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llama-workload-generator
+  template:
+    metadata:
+      labels:
+        app: llama-workload-generator
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: p7 
+      serviceAccountName: llama-workload-generator
+      containers:
+        - name: generator
+          image: cgamel/llama-workload-generator:2
+          env:
+            - name: NAMESPACE
+              value: "prompts"

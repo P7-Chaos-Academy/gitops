@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: llama-scheduler
-  namespace: kube-system
+  namespace: scheduler
 spec:
   replicas: 1
   selector:

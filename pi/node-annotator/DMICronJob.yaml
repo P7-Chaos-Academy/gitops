@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nodeannotator
+  namespace: nodeannotations
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: nodeannotator
+          nodeSelector:
+            kubernetes.io/hostname: p7
+          containers:
+          - name: nodeannotator
+            image: dbodke22/annotatenodes:latest
+            env:
+            - name: DMI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: dmi-api-secret
+                  key: DMI_API_KEY
+          restartPolicy: OnFailure
