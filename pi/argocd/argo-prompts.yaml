@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cluster-api
+  name: prompts
   namespace: argocd
 spec:
   project: default
   source:
     repoURL: git@github.com:P7-Chaos-Academy/gitops.git
     targetRevision: main
-    path: pi/cluster-api
+    path: pi/prompts
   destination:
     server: https://kubernetes.default.svc
-    namespace: cluster-api
+    namespace: prompts
   syncPolicy:
     automated:
       prune: true

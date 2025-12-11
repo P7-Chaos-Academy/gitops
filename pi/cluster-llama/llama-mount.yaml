@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: llama-daemon
+  namespace: cluster-llama
 spec:
   selector:
     matchLabels:
