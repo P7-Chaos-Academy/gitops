@@ -5,36 +5,6 @@ metadata:
   name: cluster-api
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: job-manager
-  namespace: prompts
-rules:
-- apiGroups: ["batch"]
-  resources: ["jobs"]
-  verbs: ["create", "get", "list", "delete", "watch"]
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "list", "watch"]
-- apiGroups: [""]
-  resources: ["pods/log"]
-  verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: cluster-api-job-manager-binding
-  namespace: prompts
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: job-manager
-subjects:
-- kind: ServiceAccount
-  name: default
-  namespace: cluster-api
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: cluster-api-node-annotator
@@ -55,20 +25,6 @@ subjects:
 - kind: ServiceAccount
   name: default
   namespace: cluster-api
-- kind: ServiceAccount
-  name: default
-  namespace: cluster-namespace
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: cluster-namespace-job-manager-binding
-  namespace: prompts
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: job-manager
-subjects:
 - kind: ServiceAccount
   name: default
   namespace: cluster-namespace
