@@ -3,6 +3,12 @@ kind: Namespace
 metadata:
   name: workload-simulator
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: llama-workload-generator
+  namespace: workload-simulator
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
