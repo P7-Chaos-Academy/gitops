@@ -29,7 +29,7 @@ spec:
       serviceAccountName: llama-workload-generator
       containers:
         - name: generator
-          image: cgamel/llama-workload-generator:2
+          image: cgamel/llama-workload-generator:11b25b3a
           env:
             - name: NAMESPACE
               value: "prompts"
