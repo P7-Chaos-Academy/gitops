@@ -32,4 +32,4 @@ spec:
           image: cgamel/llama-workload-generator:11b25b3a
           env:
             - name: NAMESPACE
-              value: "prompts"
+              value: "workload-simulator"
