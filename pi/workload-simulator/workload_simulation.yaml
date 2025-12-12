@@ -29,7 +29,7 @@ spec:
       serviceAccountName: llama-workload-generator
       containers:
         - name: generator
-          image: cgamel/llama-workload-generator:11b25b3a
+          image: cgamel/llama-workload-generator:3248fa28
           env:
             - name: NAMESPACE
               value: "workload-simulator"
