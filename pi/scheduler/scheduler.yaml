@@ -18,6 +18,6 @@ spec:
       serviceAccountName: llama-scheduler
       containers:
         - name: scheduler
-          image: cgamel/llama-scheduler:778e1f11
+          image: cgamel/llama-scheduler:9fe578b1
           imagePullPolicy: Always
 
