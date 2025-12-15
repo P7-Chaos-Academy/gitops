@@ -16,3 +16,9 @@ spec:
           - name: nodekiller
             image: cgamel/nodekiller:d75ba883
           restartPolicy: OnFailure
+          env:
+          - name: NANO_API_HOST
+            valueFrom:
+              secretKeyRef:
+                name: nodekiller-config
+                key: NANO_API_HOST
