@@ -14,5 +14,5 @@ spec:
             kubernetes.io/hostname: p7
           containers:
           - name: nodekiller
-            image: cgamel/nodekiller:d47dfa20
+            image: cgamel/nodekiller:d75ba883
           restartPolicy: OnFailure
