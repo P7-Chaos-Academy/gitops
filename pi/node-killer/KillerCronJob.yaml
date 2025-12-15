@@ -4,7 +4,7 @@ metadata:
   name: nodekiller
   namespace: nodekiller
 spec:
-  schedule: "*/5 * * * *" # Every 5 minutes, to give time for startup and shutdown
+  schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
@@ -12,13 +12,13 @@ spec:
           serviceAccountName: nodekiller
           nodeSelector:
             kubernetes.io/hostname: p7
-          containers:
-          - name: nodekiller
-            image: cgamel/nodekiller:d75ba883
           restartPolicy: OnFailure
-          env:
-          - name: NANO_API_HOST
-            valueFrom:
-              secretKeyRef:
-                name: nodekiller-config
-                key: NANO_API_HOST
+          containers:
+            - name: nodekiller
+              image: cgamel/nodekiller:ac4116cb
+              env:
+                - name: NANO_API_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: nodekiller-config
+                      key: NANO_API_HOST
