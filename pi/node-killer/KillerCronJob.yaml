@@ -14,7 +14,7 @@ spec:
             kubernetes.io/hostname: p7
           containers:
           - name: nodekiller
-            image: cgamel/nodekiller:d75ba883
+            image: cgamel/nodekiller:ac4116cb
           restartPolicy: OnFailure
           env:
           - name: NANO_API_HOST
