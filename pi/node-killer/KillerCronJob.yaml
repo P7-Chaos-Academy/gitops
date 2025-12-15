@@ -15,7 +15,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: nodekiller
-              image: cgamel/nodekiller:ac4116cb
+              image: cgamel/nodekiller:b293a1af
               env:
                 - name: NANO_API_HOST
                   valueFrom:
