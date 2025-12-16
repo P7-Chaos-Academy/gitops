@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cluster-api
+  name: cluster-namespace
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -22,9 +22,6 @@ roleRef:
   kind: ClusterRole
   name: cluster-api-node-annotator
 subjects:
-- kind: ServiceAccount
-  name: default
-  namespace: cluster-api
 - kind: ServiceAccount
   name: default
   namespace: cluster-namespace
