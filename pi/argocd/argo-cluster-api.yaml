@@ -11,7 +11,7 @@ spec:
     path: pi/cluster-api
   destination:
     server: https://kubernetes.default.svc
-    namespace: cluster-api
+    namespace: cluster-namespace
   syncPolicy:
     automated:
       prune: true

@@ -33,6 +33,3 @@ subjects:
 - kind: ServiceAccount
   name: default
   namespace: cluster-namespace
-- kind: ServiceAccount
-  name: default
-  namespace: cluster-api
