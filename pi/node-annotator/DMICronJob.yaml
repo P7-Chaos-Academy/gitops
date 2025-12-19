@@ -14,7 +14,7 @@ spec:
             kubernetes.io/hostname: p7
           containers:
           - name: nodeannotator
-            image: cgamel/nodeannotator:d0ef81a6
+            image: cgamel/nodeannotator:6091ef69
             env:
             - name: DMI_API_KEY
               valueFrom:
