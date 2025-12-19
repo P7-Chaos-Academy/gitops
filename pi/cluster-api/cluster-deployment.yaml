@@ -48,9 +48,6 @@ spec:
               mountPath: /dev/gpiochip0
             - name: gpiomem
               mountPath: /dev/gpiomem
-            - name: devicetree
-              mountPath: /proc/device-tree
-              readOnly: true
             - name: ssh-key
               mountPath: /root/.ssh
               readOnly: true
